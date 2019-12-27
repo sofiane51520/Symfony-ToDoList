@@ -5,8 +5,11 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            {% for liste in results %}
+        <a href="{{ path('show_unique_liste', {liste_name: liste.name}) }}">{{ liste.name }} </a>
+            {% endfor %}
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
