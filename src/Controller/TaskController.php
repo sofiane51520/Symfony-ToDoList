@@ -8,6 +8,7 @@ use App\Entity\Liste;
 use App\Entity\Task;
 use App\Form\Type\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,6 +17,8 @@ class TaskController extends AbstractController
 {
     /**
      * @Route("/new/task", name="new_task")
+     * @param Request $request
+     * @return Response
      */
     public function new_task(Request $request){
         $new_task = new Task();
@@ -26,7 +29,6 @@ class TaskController extends AbstractController
 
         $form = $this->createForm(TaskType::class,$new_task);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $task_data = $form->getData();
@@ -51,4 +53,19 @@ class TaskController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/todolist/add", name="todolist")
+     * @param Request $request
+     * @return Response
+     */
+    public function ajaxAddEvent($id, Request $request){
+        $text=$request->request->get('element');
+        $response=new Response(json_encode(array(
+            'id'=>$id->getId()+1
+        )));
+        $response->headers->set('Content-Type','application/json');
+    //return $this->render('todolist.html.twig');
+    }
+
+
 }

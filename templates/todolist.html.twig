@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block stylesheets %}
+        {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+{% block body%}
+<header>
+    <h1>TO DO LIST</h1>
+            <input id="todo" type="text" placeholder="New task"/>
+            <span class="addBtn">Add</span>
+</header>
+<div>
+    <ul id="list"></ul>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    <!-- Renders app.js & a webpack runtime.js file-->
+    <script src="/build/runtime.js"></script>
+    <script src="/build/app.js"></script>
+
+
+{% endblock %}
+</html>
